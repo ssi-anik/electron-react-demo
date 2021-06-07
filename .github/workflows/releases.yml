@@ -21,6 +21,10 @@ jobs:
       
       - name: Make app
         run: yarn run make-linux
+
+      - name: Get file name
+        id: file
+        run: echo ::set-output name=NAME::$(ls out/make/deb/x64/*.deb)
       
       - name: Get the tag
         id: version
@@ -33,7 +37,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           #asset_name: mything - ${{ steps.version.outputs.NAME }}
           tag: ${{ steps.version.outputs.NAME }}
-          file: ./out/make/deb/x64/*.deb
+          file: ${{ steps.file.outputs.NAME }}
           overwrite: true
           body: "Release text from linux job"
   
