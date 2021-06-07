@@ -121,8 +121,8 @@ jobs:
         - name: Get artifact name
           id: artifact
           run: |
-            ls -al out/make/win32/x64
-            echo ::set-output name=name::`ls out/make/deb/x64/*.exe`
+            dir ls out/make/squirrel.windows/x64/RELEASES/*.exe
+            echo ::set-output name=name::`ls out/make/squirrel.windows/x64/RELEASES/*.exe`
         
         - name: Get the release tag
           id: release
