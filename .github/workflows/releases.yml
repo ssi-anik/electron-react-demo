@@ -35,7 +35,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          #asset_name: mything - ${{ steps.version.outputs.NAME }}
+          asset_name: application_for_linux.deb
           tag: ${{ steps.version.outputs.NAME }}
           file: ${{ steps.file.outputs.NAME }}
           overwrite: true
