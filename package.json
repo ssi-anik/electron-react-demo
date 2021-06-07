@@ -36,8 +36,7 @@
         "electron": "wait-on tcp:3000 && electron-forge start",
         "package": "react-scripts build && electron-forge package",
         "make-linux": "react-scripts build && electron-forge make --platform linux",
-        "make-mac": "react-scripts build && electron-forge make --platform darwin",
-        "publish": "electron-forge publish"
+        "make-mac": "react-scripts build && electron-forge make --platform darwin"
     },
     "config": {
         "forge": {
@@ -64,19 +63,6 @@
                         "maintainer": "Anik",
                         "homepage": "https://github.com/ssi-anik",
                         "icon": "src/icons/png/1024x1024.png"
-                    }
-                }
-            ],
-            "publishers": [
-                {
-                    "name": "@electron-forge/publisher-github",
-                    "config": {
-                        "repository": {
-                            "owner": "ssi-anik",
-                            "name": "electron-react-demo"
-                        },
-                        "draft": false,
-                        "prerelease": false
                     }
                 }
             ]
