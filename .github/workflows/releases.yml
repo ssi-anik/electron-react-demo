@@ -6,96 +6,134 @@ on:
   workflow_dispatch:
 
 jobs:
-  release:
-    name: Create release tag
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Get release name
-        id: release_name
-        run: echo ::set-output name=name::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+#  release:
+#    name: Create release tag
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Get release name
+#        id: release_name
+#        run: echo ::set-output name=name::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+#
+#      - name: Create Release
+#        uses: softprops/action-gh-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          body: "Assets for the release ${{ steps.release_name.outputs.name }}" # Release description
+#          draft: false
+#          prerelease: false
+#          name: ${{ steps.release_name.outputs.name }} # Release name
+#          tag_name: ${{ steps.release_name.outputs.name }} # Tag name
+#
+#  publish:
+#    name: Build & Release for ${{ matrix.os }}
+#    runs-on: ${{ matrix.os }}
+#    strategy:
+#      matrix:
+#        os: [ubuntu-latest, macos-latest]
+#        include:
+#          - os: ubuntu-latest
+#            artifact_name: "ls out/make/deb/x64/*.deb"
+#            asset_name: application_for_linux.deb
+#            make_command: "yarn run make-linux"
+#
+#          - os: macos-latest
+#            artifact_name: "ls out/make/zip/darwin/x64/*.zip"
+#            asset_name: application_for_mac.zip
+#            make_command: "yarn run make-mac"
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/setup-node@v2
+#        with:
+#          node-version: 14
+#
+#      - name: Get yarn cache directory path
+#        id: yarn-cache-dir-path
+#        run: echo "::set-output name=dir::$(yarn cache dir)"
+#
+#      - name: Prepare cache
+#        uses: actions/cache@v1
+#        id: yarn-cache
+#        with:
+#          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+#          key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: ${{ matrix.os }}-yarn-
+#
+#      - name: Install project dependencies
+#        #if: steps.yarn-cache.outputs.cache-hit != 'true'
+#        run: yarn install --prefer-offline
+#
+#      - name: Make application
+#        shell: bash
+#        run: ${{ matrix.make_command }}
+#
+#      - name: Get artifact name
+#        id: artifact
+#        run: echo ::set-output name=name::`${{ matrix.artifact_name }}`
+#
+#      - name: Get the release tag
+#        id: release
+#        run: |
+#          echo ::set-output name=name::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+#
+#      - name: Release asset
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          asset_name: ${{ matrix.asset_name }}
+#          tag: ${{ steps.release.outputs.name }}
+#          file: ${{ steps.artifact.outputs.name }}
+#          overwrite: true
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          body: "Assets for the release ${{ steps.release_name.outputs.name }}" # Release description
-          draft: false
-          prerelease: false
-          name: ${{ steps.release_name.outputs.name }} # Release name
-          tag_name: ${{ steps.release_name.outputs.name }} # Tag name
-  
-  publish:
-    name: Build & Release for ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        include:
-          - os: ubuntu-latest
-            artifact_name: "ls out/make/deb/x64/*.deb"
-            asset_name: application_for_linux.deb
-            make_command: "yarn run make-linux"
-          
-          - os: macos-latest
-            artifact_name: "ls out/make/zip/darwin/x64/*.zip"
-            asset_name: application_for_mac.zip
-            make_command: "yarn run make-mac"
-    steps:
-      - uses: actions/checkout@v2
-      
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      
-      - name: Prepare cache
-        uses: actions/cache@v1
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ matrix.os }}-yarn-
-      
-      - name: Install project dependencies
-        #if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn install --prefer-offline
-      
-      - name: Make application
-        shell: bash
-        run: ${{ matrix.make_command }}
-      
-      - name: Get artifact name
-        id: artifact
-        run: echo ::set-output name=name::`${{ matrix.artifact_name }}`
-      
-      - name: Get the release tag
-        id: release
-        run: |
-          echo ::set-output name=name::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
-      
-      - name: Release asset
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          asset_name: ${{ matrix.asset_name }}
-          tag: ${{ steps.release.outputs.name }}
-          file: ${{ steps.artifact.outputs.name }}
-          overwrite: true
-
-#    build_on_win:
-#      runs-on: windows-latest
-#      steps:
-#        - uses: actions/checkout@v2
-#        - uses: actions/setup-node@v2
+    build_on_win:
+      name: Build & Release for windows
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v2
+        
+        - uses: actions/setup-node@v2
+          with:
+            node-version: 14
+        
+#        - name: Get yarn cache directory path
+#          id: yarn-cache-dir-path
+#          run: echo "::set-output name=dir::$(yarn cache dir)"
+#
+#        - name: Prepare cache
+#          uses: actions/cache@v1
+#          id: yarn-cache
 #          with:
-#            node-version: 14
-#        - name: install dependencies
-#          run: npm install
-#        - name: build
-#          run: npm run make
+#            path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+#            key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#            restore-keys: ${{ matrix.os }}-yarn-
+        
+        - name: Install project dependencies
+          #if: steps.yarn-cache.outputs.cache-hit != 'true'
+          run: yarn install --prefer-offline
+        
+        - name: Make application
+          shell: bash
+          run: yarn run make-windows
+        
+        - name: Get artifact name
+          id: artifact
+          run: |
+            ls -al out/make/win32/x64
+            echo ::set-output name=name::`ls out/make/deb/x64/*.exe`
+        
+        - name: Get the release tag
+          id: release
+          run: |
+            echo ::set-output name=name::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+        
+        - name: Release asset
+          uses: svenstaro/upload-release-action@v2
+          with:
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            asset_name: ${{ matrix.asset_name }}
+            tag: ${{ steps.release.outputs.name }}
+            file: ${{ steps.artifact.outputs.name }}
+            overwrite: true
