@@ -33,7 +33,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           #asset_name: mything - ${{ steps.version.outputs.NAME }}
           tag: ${{ steps.version.outputs.NAME }}
-          file: ./out/make/deb/x64/electron-react-demo_0.1.0_amd64.deb
+          file: ./out/make/deb/x64/*.deb
           overwrite: true
           body: "Release text from linux job"
   
