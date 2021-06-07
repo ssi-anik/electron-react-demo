@@ -50,7 +50,6 @@
                     "name": "@electron-forge/maker-squirrel",
                     "config": {
                         "name": "electron_react_demo",
-                        "iconUrl": "src/icons/win/icon.ico",
                         "authors": "Anik"
                     }
                 },
