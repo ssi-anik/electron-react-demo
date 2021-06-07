@@ -41,7 +41,7 @@ jobs:
             make_command: "yarn run make-linux"
           
           - os: macos-latest
-            artifact: "ls out/make/zip/darwin/x64/*.zip"
+            artifact_name: "ls out/make/zip/darwin/x64/*.zip"
             asset_name: application_for_mac.zip
             make_command: "yarn run make-mac"
     steps:
