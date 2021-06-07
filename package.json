@@ -37,7 +37,7 @@
         "package": "react-scripts build && electron-forge package",
         "make-linux": "react-scripts build && electron-forge make --platform linux",
         "make-mac": "react-scripts build && electron-forge make --platform darwin",
-        "make-windows": "react-scripts build && electron-forge make --platform win32"
+        "make-windows": "react-scripts build && DEBUG=electron-packager electron-forge make --platform win32"
     },
     "config": {
         "forge": {
