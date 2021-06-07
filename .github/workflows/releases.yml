@@ -61,7 +61,7 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          restore-keys: ${{ matrix.os }}-yarn-
       
       - name: Install project dependencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
