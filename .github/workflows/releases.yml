@@ -1,0 +1,49 @@
+name: Release Electron App
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    name: Build and release for Linux
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: install dependencies
+        run: yarn install
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn run publish
+
+  build_on_mac:
+    runs-on: macos-latest
+    name: Build and release for Mac
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: install dependencies
+        run: yarn install
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn run publish
+
+#    build_on_win:
+#      runs-on: windows-latest
+#      steps:
+#        - uses: actions/checkout@v2
+#        - uses: actions/setup-node@v2
+#          with:
+#            node-version: 14
+#        - name: install dependencies
+#          run: npm install
+#        - name: build
+#          run: npm run make
