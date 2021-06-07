@@ -11,30 +11,77 @@ jobs:
     name: Build and release for Linux
     steps:
       - uses: actions/checkout@v2
+      
       - uses: actions/setup-node@v2
         with:
           node-version: 14
+      
       - name: install dependencies
         run: yarn install
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: yarn run publish
-
-  build_on_mac:
+      
+      - name: Make app
+        run: yarn run make-linux
+      
+      - name: Get the tag
+        id: version
+        run: |
+          echo ::set-output name=NAME::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+      
+      - name: Create a new release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          #asset_name: mything - ${{ steps.version.outputs.NAME }}
+          tag: ${{ steps.version.outputs.NAME }}
+          file: ./out/make/deb/x64/x-special/electron-react-demo_0.1.0_amd64.deb
+          overwrite: true
+            body: "Release text from linux job"
+  
+  mac:
     runs-on: macos-latest
     name: Build and release for Mac
     steps:
       - uses: actions/checkout@v2
+      
       - uses: actions/setup-node@v2
         with:
           node-version: 14
+      
       - name: install dependencies
         run: yarn install
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: yarn run publish
+      
+      - name: Make app
+        run: yarn run make-mac
+      
+      - name: Get the tag
+        id: version
+        run: |
+          echo ::set-output name=NAME::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+      
+      - name: Create a new release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          #asset_name: mything - ${{ steps.version.outputs.NAME }}
+          tag: ${{ steps.version.outputs.NAME }}
+          file: ./out/make/zip/darwin/x64/ElectronReactDemo-darwin-x64-0.1.0.zip
+          overwrite: true
+          body: "Release text from mac job"
+
+#  build_on_mac:
+#    runs-on: macos-latest
+#    name: Build and release for Mac
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v2
+#        with:
+#          node-version: 14
+#      - name: install dependencies
+#        run: yarn install
+#      - name: Release
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: yarn run publish
 
 #    build_on_win:
 #      runs-on: windows-latest
