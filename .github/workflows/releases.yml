@@ -21,7 +21,7 @@ jobs:
       
       - name: Make app
         run: yarn run make-linux
-
+      
       - name: Get file name
         id: file
         run: echo ::set-output name=NAME::$(ls out/make/deb/x64/*.deb)
@@ -56,6 +56,10 @@ jobs:
       
       - name: Make app
         run: yarn run make-mac
+  
+      - name: Get file name
+        id: file
+        run: echo ::set-output name=NAME::$(ls out/make/zip/darwin/x64/*.zip)
       
       - name: Get the tag
         id: version
@@ -66,9 +70,9 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          #asset_name: mything - ${{ steps.version.outputs.NAME }}
+          asset_name: application_for_mac.zip
           tag: ${{ steps.version.outputs.NAME }}
-          file: ./out/make/zip/darwin/x64/ElectronReactDemo-darwin-x64-0.1.0.zip
+          file: ${{ steps.file.outputs.NAME }}
           overwrite: true
           body: "Release text from mac job"
 
