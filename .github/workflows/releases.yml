@@ -6,75 +6,168 @@ on:
   workflow_dispatch:
 
 jobs:
-  linux:
+  release:
+    name: Make an empty release
     runs-on: ubuntu-latest
-    name: Build and release for Linux
     steps:
       - uses: actions/checkout@v2
       
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      
-      - name: install dependencies
-        run: yarn install
-      
-      - name: Make app
-        run: yarn run make-linux
-      
-      - name: Get file name
-        id: file
-        run: echo ::set-output name=NAME::$(ls out/make/deb/x64/*.deb)
-      
-      - name: Get the tag
-        id: version
+      - name: Get release name
+        id: release_name
         run: |
-          echo ::set-output name=NAME::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+          echo ::set-output name=name::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
       
-      - name: Create a new release
-        uses: svenstaro/upload-release-action@v2
+      - name: Create Release
+        uses: marvinpinto/action-automatic-releases@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          asset_name: application_for_linux.deb
-          tag: ${{ steps.version.outputs.NAME }}
-          file: ${{ steps.file.outputs.NAME }}
-          overwrite: true
-          body: "Release text from linux job"
-  
-  mac:
-    runs-on: macos-latest
-    name: Build and release for Mac
-    steps:
-      - uses: actions/checkout@v2
-      
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      
-      - name: install dependencies
-        run: yarn install
-      
-      - name: Make app
-        run: yarn run make-mac
-  
-      - name: Get file name
-        id: file
-        run: echo ::set-output name=NAME::$(ls out/make/zip/darwin/x64/*.zip)
-      
-      - name: Get the tag
-        id: version
-        run: |
-          echo ::set-output name=NAME::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
-      
-      - name: Create a new release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          asset_name: application_for_mac.zip
-          tag: ${{ steps.version.outputs.NAME }}
-          file: ${{ steps.file.outputs.NAME }}
-          overwrite: true
-          body: "Release text from mac job"
+          body: "Release for the ${{ steps.release_name.outputs.name }}" # Release description
+          draft: false
+          prerelease: false
+          name: ${{ steps.release_name.outputs.name }} # Release name
+          tag_name: ${{ steps.release_name.outputs.name }} # Tag name
+
+#  publish:
+#    name: Build & Release for ${{ matrix.os }}
+#    runs-on: ${{ matrix.os }}
+#    strategy:
+#      matrix:
+#        include:
+#          - os: ubuntu-latest
+#            command: ls out/make/deb/x64/*.deb
+#            asset_name: mything-linux-amd64
+#          - os: windows-latest
+#            artifact_name: mything.exe
+#            asset_name: mything-windows-amd64
+#          - os: macos-latest
+#            artifact_name: mything
+#            asset_name: mything-macos-amd64
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/setup-node@v2
+#        with:
+#          node-version: 14
+#
+#      - name: Get yarn cache directory path
+#        id: yarn-cache-dir-path
+#        run: echo "::set-output name=dir::$(yarn cache dir)"
+#
+#      - name: Prepare cache
+#        uses: actions/cache@v1
+#        id: yarn-cache
+#        with:
+#          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+#          key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-yarn-
+#
+#      - name: Install project dependencies
+#        if: steps.yarn-cache.outputs.cache-hit != 'true'
+#        run: yarn install --prefer-offline
+#
+#      - name: Make app
+#        run: yarn run make-linux
+#
+#      - name: Get artifact name
+#        id: artifact
+#        shell: bash
+#        run: |
+#          f=`eval ${{ matrix.command }}`
+#          r="${r//'%'/'%25'}"                               # Multiline escape sequences for %
+#          r="${r//$'\n'/'%0A'}"                             # Multiline escape sequences for '\n'
+#          r="${r//$'\r'/'%0D'}"                             # Multiline escape sequences for '\r'
+#          echo "::set-output name=RELEASE_BODY::$r"         # <--- Set environment variable
+#
+#      - name: Get file name
+#        id: file
+#        run: echo ::set-output name=NAME::$(ls out/make/deb/x64/*.deb)
+#
+#      - name: Get the tag
+#        id: version
+#        run: |
+#          echo ::set-output name=NAME::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+#
+#      - name: Create a new release
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          asset_name: application_for_linux.deb
+#          tag: ${{ steps.version.outputs.NAME }}
+#          file: ${{ steps.file.outputs.NAME }}
+#          overwrite: true
+#          body: "Release text from linux job"
+#
+#  linux:
+#    runs-on: ubuntu-latest
+#    name: Build and release for Linux
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/setup-node@v2
+#        with:
+#          node-version: 14
+#
+#      - name: install dependencies
+#        run: yarn install
+#
+#      - name: Make app
+#        run: yarn run make-linux
+#
+#      - name: Get file name
+#        id: file
+#        run: echo ::set-output name=NAME::$(ls out/make/deb/x64/*.deb)
+#
+#      - name: Get the tag
+#        id: version
+#        run: |
+#          echo ::set-output name=NAME::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+#
+#      - name: Create a new release
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          asset_name: application_for_linux.deb
+#          tag: ${{ steps.version.outputs.NAME }}
+#          file: ${{ steps.file.outputs.NAME }}
+#          overwrite: true
+#          body: "Release text from linux job"
+#
+#  mac:
+#    runs-on: macos-latest
+#    name: Build and release for Mac
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/setup-node@v2
+#        with:
+#          node-version: 14
+#
+#      - name: install dependencies
+#        run: yarn install
+#
+#      - name: Make app
+#        run: yarn run make-mac
+#
+#      - name: Get file name
+#        id: file
+#        run: echo ::set-output name=NAME::$(ls out/make/zip/darwin/x64/*.zip)
+#
+#      - name: Get the tag
+#        id: version
+#        run: |
+#          echo ::set-output name=NAME::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
+#
+#      - name: Create a new release
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          asset_name: application_for_mac.zip
+#          tag: ${{ steps.version.outputs.NAME }}
+#          file: ${{ steps.file.outputs.NAME }}
+#          overwrite: true
+#          body: "Release text from mac job"
 
 #  build_on_mac:
 #    runs-on: macos-latest
