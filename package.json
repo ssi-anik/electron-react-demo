@@ -10,18 +10,19 @@
         "@testing-library/jest-dom": "^5.11.4",
         "@testing-library/react": "^11.1.0",
         "@testing-library/user-event": "^12.1.10",
+        "electron-is-dev": "^2.0.0",
         "electron-squirrel-startup": "^1.0.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-scripts": "4.0.3",
-        "web-vitals": "^1.0.1",
-        "electron-is-dev": "^2.0.0"
+        "web-vitals": "^1.0.1"
     },
     "devDependencies": {
         "@electron-forge/cli": "^6.0.0-beta.57",
         "@electron-forge/maker-deb": "^6.0.0-beta.57",
         "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
         "@electron-forge/maker-zip": "^6.0.0-beta.57",
+        "@electron-forge/publisher-github": "^6.0.0-beta.57",
         "concurrently": "^6.2.0",
         "electron": "^13.1.1",
         "wait-on": "^5.3.0"
@@ -35,7 +36,8 @@
         "electron": "wait-on tcp:3000 && electron-forge start",
         "package": "react-scripts build && electron-forge package",
         "make-linux": "react-scripts build && electron-forge make --platform linux",
-        "make-mac": "react-scripts build && electron-forge make --platform darwin"
+        "make-mac": "react-scripts build && electron-forge make --platform darwin",
+        "publish": "electron-forge publish"
     },
     "config": {
         "forge": {
@@ -62,6 +64,17 @@
                         "maintainer": "Anik",
                         "homepage": "https://github.com/ssi-anik",
                         "icon": "src/icons/png/1024x1024.png"
+                    }
+                }
+            ],
+            "publishers": [
+                {
+                    "name": "@electron-forge/publisher-github",
+                    "config": {
+                        "repository": {
+                            "owner": "ssi-anik",
+                            "name": "electron-react-demo"
+                        }
                     }
                 }
             ]
