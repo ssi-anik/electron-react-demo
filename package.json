@@ -36,8 +36,7 @@
         "electron": "wait-on tcp:3000 && electron-forge start",
         "package": "react-scripts build && electron-forge package",
         "make-linux": "react-scripts build && electron-forge make --platform linux",
-        "make-mac": "react-scripts build && electron-forge make --platform darwin",
-        "make-windows": "react-scripts build && electron-forge make --platform win32"
+        "make-mac": "react-scripts build && electron-forge make --platform darwin"
     },
     "config": {
         "forge": {
@@ -46,13 +45,6 @@
                 "executableName": "electron-react-demo"
             },
             "makers": [
-                {
-                    "name": "@electron-forge/maker-squirrel",
-                    "config": {
-                        "name": "ElectronReactDemo",
-                        "authors": "Anik"
-                    }
-                },
                 {
                     "name": "@electron-forge/maker-zip",
                     "platforms": [
