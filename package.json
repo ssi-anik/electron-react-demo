@@ -39,28 +39,7 @@
         "make-mac": "react-scripts build && electron-forge make --platform darwin"
     },
     "config": {
-        "forge": {
-            "packagerConfig": {
-                "icon": "src/icons/mac/icon.icns",
-                "executableName": "electron-react-demo"
-            },
-            "makers": [
-                {
-                    "name": "@electron-forge/maker-zip",
-                    "platforms": [
-                        "darwin"
-                    ]
-                },
-                {
-                    "name": "@electron-forge/maker-deb",
-                    "config": {
-                        "maintainer": "Anik",
-                        "homepage": "https://github.com/ssi-anik",
-                        "icon": "src/icons/png/1024x1024.png"
-                    }
-                }
-            ]
-        }
+        "forge": "./forge.config.js"
     },
     "eslintConfig": {
         "extends": [
