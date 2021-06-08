@@ -71,33 +71,33 @@ let config = {
 
 module.exports = config;
 
-config = {
-    "packagerConfig": {
-        "icon": "src/icons/mac/icon.icns",
-        "executableName": "electron-react-demo"
-    },
-    "makers": [
-        {
-            "name": "@electron-forge/maker-squirrel",
-            "config": {
-                "name": "ElectronReactDemo",
-                "authors": "Anik"
-            }
-        },
-        {
-            "name": "@electron-forge/maker-zip",
-            "platforms": [
-                "darwin"
-            ]
-        },
-        {
-            "name": "@electron-forge/maker-deb",
-            "config": {
-                "maintainer": "Anik",
-                "homepage": "https://github.com/ssi-anik",
-                "icon": "src/icons/png/1024x1024.png"
-            }
-        }
-    ]
-};
-export default config;
+//config = {
+//    "packagerConfig": {
+//        "icon": "src/icons/mac/icon.icns",
+//        "executableName": "electron-react-demo"
+//    },
+//    "makers": [
+//        {
+//            "name": "@electron-forge/maker-squirrel",
+//            "config": {
+//                "name": "ElectronReactDemo",
+//                "authors": "Anik"
+//            }
+//        },
+//        {
+//            "name": "@electron-forge/maker-zip",
+//            "platforms": [
+//                "darwin"
+//            ]
+//        },
+//        {
+//            "name": "@electron-forge/maker-deb",
+//            "config": {
+//                "maintainer": "Anik",
+//                "homepage": "https://github.com/ssi-anik",
+//                "icon": "src/icons/png/1024x1024.png"
+//            }
+//        }
+//    ]
+//};
+//export default config;
