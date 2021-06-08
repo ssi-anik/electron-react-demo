@@ -36,7 +36,8 @@
         "electron": "wait-on tcp:3000 && electron-forge start",
         "package": "react-scripts build && electron-forge package",
         "make-linux": "react-scripts build && electron-forge make --platform linux",
-        "make-mac": "react-scripts build && electron-forge make --platform darwin"
+        "make-mac": "react-scripts build && electron-forge make --platform darwin",
+        "make-windows": "react-scripts build && electron-forge make"
     },
     "config": {
         "forge": "./forge.config.js"
