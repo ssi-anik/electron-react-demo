@@ -47,9 +47,9 @@ jobs:
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ matrix.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: windows-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ matrix.os }}-yarn-
+            windows-yarn-
       - name: Install
         run: yarn --prefer-offline
       - name: Get release name
