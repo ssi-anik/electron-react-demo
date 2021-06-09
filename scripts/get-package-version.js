@@ -1,5 +1,5 @@
 const path = require('path');
-console.log(require(path.join(__dirname, '../package.json')));
+console.log(require(path.join(__dirname, '../package.json')).version);
 
 //const package_version = require(path.join(__dirname, '../package.json')).version;
 //const build_number = process.argv.slice(2)[0] || '';
