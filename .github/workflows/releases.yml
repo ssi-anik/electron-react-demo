@@ -41,10 +41,12 @@ jobs:
           node-version: 14
       - name: Get release name
         id: release_name
+#        version=$(node ./scripts/get-version.js ${{ github.run_number }})
+#        echo $version
+#        echo ::set-output name=name::version
         run: |
-          version=$(node ./scripts/get-version.js ${{ github.run_number }})
-          echo $version
-          echo ::set-output name=name::version
+          pkgver=$(node ./scripts/get-version.js)
+          echo ::set-output name=version::$pkgver
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
