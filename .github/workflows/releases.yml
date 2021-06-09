@@ -39,11 +39,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      - name: Get release name
+        id: release_name
+        run: |
+          version=$(node ./scripts/get-version.js ${{ github.run_number }})
+          echo $version
+          echo ::set-output name=name::version
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - uses: actions/cache@v1
-        if: matrix.os
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -52,13 +57,9 @@ jobs:
             windows-yarn-
       - name: Install
         run: yarn --prefer-offline
-      - name: Get release name
-        id: release_name
+#      - name: Get release name
+#        id: release_name
 #        run: echo ::set-output name=name::$(jq --arg run ${{ github.run_number }} -r '.version = .version+"-build-"+$run ' package.json  | jq -r '.version')
-        run: |
-          version=`node ./scripts/get-version.js ${{ github.run_number }}`
-          echo $version
-          echo ::set-output name=name::version
       - name: Make
         run: yarn run make-windows --arch=all
       - name: Release
