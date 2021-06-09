@@ -44,7 +44,7 @@ jobs:
             make_command: "yarn run make-linux --arch=all"
           
           - os: macos-latest
-            make_command: "yarn run make-mac --arch=all"
+            make_command: "yarn run make-mac"
           
           - os: windows-latest
             make_command: "yarn run make-windows --arch=all"
