@@ -35,8 +35,8 @@
         "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
         "electron": "wait-on tcp:3000 && electron-forge start",
         "package": "react-scripts build && electron-forge package",
-        "make-linux": "react-scripts build && electron-forge make --platform linux",
-        "make-mac": "react-scripts build && electron-forge make --platform darwin",
+        "make-linux": "react-scripts build && electron-forge make",
+        "make-mac": "react-scripts build && electron-forge make",
         "make-windows": "react-scripts build && electron-forge make"
     },
     "config": {
