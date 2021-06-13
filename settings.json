@@ -2,6 +2,11 @@
     "stable_version": "1.1.1",
     "base_url": "https://ssi-anik.github.io/electron-react-demo",
     "categories": ["Movie", "FTP", "TV"],
+    "disclaimers": [
+        "This project is not maintained by BDIX or any ISP.",
+        "Few servers may be shown as active but requires partnership with ISPs.",
+        "If the providers don't use secure HTTP (HTTPS) server, then you may not find them under active connection.",
+    ],
     "files": [
         "movies.json",
         "ftps.json",
