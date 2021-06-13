@@ -5,7 +5,7 @@
     "disclaimers": [
         "This project is not maintained by BDIX or any ISP.",
         "Few servers may be shown as active but requires partnership with ISPs.",
-        "If the providers don't use secure HTTP (HTTPS) server, then you may not find them under active connection.",
+        "If the providers don't use secure HTTP (HTTPS) server, then you may not find them under active connection."
     ],
     "files": [
         "movies.json",
