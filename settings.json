@@ -1,5 +1,5 @@
 {
-    "stable_version": "1.0.1",
+    "stable_version": "0.0.1",
     "base_url": "https://ssi-anik.github.io/electron-react-demo",
     "categories": ["Movie", "FTP", "TV"],
     "files": [
