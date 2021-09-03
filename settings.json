@@ -8,9 +8,9 @@
     "base_url": "https://ssi-anik.github.io/electron-react-demo",
     "categories": ["Movie", "FTP", "TV", "Game"],
     "paths": {
-        "Movie": ["https://ssi-anik.github.io/electron-react-demo/movies.json"],
+        "Movie": ["https://ssi-anik.github.io/electron-react-demo/movies.json", "https://ssi-anik.github.io/electron-react-demo/games.json"],
         "FTP": ["https://ssi-anik.github.io/electron-react-demo/ftps.json"],
         "TV": ["https://ssi-anik.github.io/electron-react-demo/iptv.json"],
-        "Game": ["https://ssi-anik.github.io/electron-react-demo/games.json"]
+        "Game": []
     }
 }
