@@ -12,5 +12,5 @@
         "ftps": "https://ssi-anik.github.io/electron-react-demo/ftps.json",
         "iptv": "https://ssi-anik.github.io/electron-react-demo/iptv.json",
         "games": "https://ssi-anik.github.io/electron-react-demo/games.json"
-    ]
+    }
 }
