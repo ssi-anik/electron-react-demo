@@ -1,16 +1,16 @@
 {
-    "stable_version": "1.1.1",
-    "base_url": "https://ssi-anik.github.io/electron-react-demo",
-    "categories": ["Movie", "FTP", "TV", "Game"],
+    "stable_version": "1.0.5",
     "disclaimers": [
         "This project is not maintained by BDIX or any ISP.",
         "Few servers may be shown as active but requires partnership with ISPs.",
         "If the providers don't use secure HTTP (HTTPS) server, then you may not find them under active connection."
     ],
-    "files": [
-        "movies.json",
-        "ftps.json",
-        "iptv.json",
-        "games.json"
+    "base_url": "https://ssi-anik.github.io/electron-react-demo",
+    "categories": ["Movie", "FTP", "TV", "Game"],
+    "paths": {
+        "movies": "https://ssi-anik.github.io/electron-react-demo/movies.json",
+        "ftps": "https://ssi-anik.github.io/electron-react-demo/ftps.json",
+        "iptv": "https://ssi-anik.github.io/electron-react-demo/iptv.json",
+        "games": "https://ssi-anik.github.io/electron-react-demo/games.json"
     ]
 }
