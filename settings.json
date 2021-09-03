@@ -10,6 +10,7 @@
         "movie": {"name": "Movie", "sources": ["https://ssi-anik.github.io/electron-react-demo/movies.json", "https://ssi-anik.github.io/electron-react-demo/games.json"]},
         "ftp": {"name": "FTP", "sources": ["https://ssi-anik.github.io/electron-react-demo/ftps.json"]},
         "tv": {"name": "IPTV", "sources": ["https://ssi-anik.github.io/electron-react-demo/iptv.json"]},
-        "game": {"name": "Games", "sources": []}
+        "game": {"name": "Games", "sources": []},
+        "empty": {"sources": [ "https://ssi-anik.github.io/electron-react-demo/games.json"]}
     }
 }
