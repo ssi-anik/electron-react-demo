@@ -13,6 +13,7 @@
         "game": {"name": "Games", "sources": []},
         "invalid-for-no-name": {"sources": [ "https://ssi-anik.github.io/electron-react-demo/games.json"]},
         "invalid-for-zero-sources": {"name": "Invalid", "sources": []},
-        "invalid": {}
+        "invalid": {},
+        "invalid-sources": {"name": "Invalid", "sources": [ "https://ssi-anik.github.io/electron-react-demo/non-existing.json"]}
     }
 }
