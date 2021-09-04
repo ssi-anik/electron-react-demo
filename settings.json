@@ -7,9 +7,9 @@
     ],
     "base_url": "https://ssi-anik.github.io/electron-react-demo",
     "types": {
-        "movie": {"name": "Movie", "sources": ["https://ssi-anik.github.io/electron-react-demo/movies.json", "https://ssi-anik.github.io/electron-react-demo/games.json"]},
+        "movie": {"name": "Movie", "sources": ["https://ssi-anik.github.io/electron-react-demo/movies.json?q=__REPLACE__", "https://ssi-anik.github.io/electron-react-demo/games.json"]},
         "ftp": {"name": "FTP", "sources": ["https://ssi-anik.github.io/electron-react-demo/ftps.json"]},
-        "tv": {"name": "IPTV", "sources": ["https://ssi-anik.github.io/electron-react-demo/iptv.json"]},
+        "tv": {"name": "IPTV", "sources": ["https://ssi-anik.github.io/electron-react-demo/iptv.json?q=__REPLACE__"]},
         "game": {"name": "Games", "sources": []},
         "invalid-for-no-name": {"sources": [ "https://ssi-anik.github.io/electron-react-demo/games.json"]},
         "invalid-for-zero-sources": {"name": "Invalid", "sources": []},
