@@ -51,7 +51,7 @@ jobs:
             make_command: "yarn run make-mac"
           
           - os: windows-latest
-            make_command: "yarn run make-windows --arch=all"
+            make_command: "yarn run make-windows"
     steps:
       - name: Clone codebase
         uses: actions/checkout@v2
