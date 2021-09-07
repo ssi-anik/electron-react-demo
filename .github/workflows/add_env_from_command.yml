@@ -1,0 +1,35 @@
+name: Add env from command
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    name: test set env on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ windows-latest, ubuntu-latest, macos-latest ]
+    
+    steps:
+      - name: Set the value
+        # https://github.com/actions/starter-workflows/issues/68#issuecomment-792338408
+        id: step_one
+        run: |
+          echo "action_state=yellow" >> $GITHUB_ENV
+
+      - name: Use the value
+        id: step_two
+        run: |
+          echo "${{ env.action_state }}" # This will output 'yellow'
+
+      - name: "Can use environment variables"
+        # https://brandur.org/fragments/github-actions-env-vars-in-env-vars
+        run: |
+          echo "Working variable from variable: $action_state"
