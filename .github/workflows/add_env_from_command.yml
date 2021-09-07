@@ -48,5 +48,5 @@ jobs:
           
       - name: Show variables
         run: env
-        env: |
+        env:
           RELEASE_TAG: ${{ steps.tag.outputs.name }}
