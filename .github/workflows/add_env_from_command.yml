@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: 14
       - name: get release tag
+        id: tag
         run: |
           echo ::set-output name=name::`node ./scripts/get-release-name.js ${{ github.run_number }}`
       
