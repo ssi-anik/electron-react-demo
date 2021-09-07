@@ -4,7 +4,7 @@
         "This project is not maintained by BDIX or any ISP.",
         "Few servers may be shown as active but requires partnership with ISPs.",
         "If the providers don't use secure HTTP (HTTPS) server, then you may not find them under active connection.",
-        "Missing any link? Inappropriate link? Found any issue? <a href='https://github.com/ssi-anik/bdix-ftp-server-desktop/issues' target='_blank'> Report a bug</a>"
+        "Missing any link, inappropriate or expired? Found any issue? <a href='https://github.com/ssi-anik/bdix-ftp-server-desktop/issues' target='_blank'> Report a bug</a>"
     ],
     "base_url": "https://ssi-anik.github.io/electron-react-demo",
     "types": {
