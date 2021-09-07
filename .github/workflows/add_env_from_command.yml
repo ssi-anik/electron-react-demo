@@ -18,6 +18,10 @@ jobs:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
     
     steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      
       - name: Set the value
         # https://github.com/actions/starter-workflows/issues/68#issuecomment-792338408
         id: step_one
